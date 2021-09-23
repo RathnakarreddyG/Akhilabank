@@ -24,6 +24,8 @@ public class Customer {
 	private String mobile;
 	@Column(nullable = false, unique = true, length = 12)
 	private String adhaar;
+	
+	private String accountnumber;
 
 	public Customer() {
 		super();
@@ -75,6 +77,14 @@ public class Customer {
 
 	public void setAdhaar(String adhaar) {
 		this.adhaar = adhaar;
+	}
+
+	public String getAccountnumber() {
+		return accountnumber;
+	}
+
+	public void setAccountnumber(String accountnumber) {
+		this.accountnumber = accountnumber;
 	}
 
 }
