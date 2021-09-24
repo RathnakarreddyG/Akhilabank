@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,11 +23,6 @@ public class CustController {
 		return "index";
 	}
 
-	@GetMapping("/login")
-	public String loginpage() {
-		return "login";
-	}
-
 	@GetMapping("/register")
 	public String showRegistrationForm(Model model) {
 		model.addAttribute("customer", new Customer());
@@ -36,16 +32,18 @@ public class CustController {
 
 	@PostMapping("/process_register")
 	public String processRegister(Customer customer,Model model) {
-//	    BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-//	    String encodedPassword = passwordEncoder.encode(user.getPassword());
-//	    user.setPassword(encodedPassword);
-		if(customer == null) {
-			return "index";
-		}
-		String accountNumber = new SimpleDateFormat("ddMMyyyySSS").format(Calendar.getInstance().getTime());
+	    customer.setPassword(customer.getPan_number());
+		String accountNumber = "2"+new SimpleDateFormat("ddMMyyyySSS").format(Calendar.getInstance().getTime());
 		customer.setAccountnumber(accountNumber);
 		customerService.AddCustomer(customer);
 		model.addAttribute("accountNumber",accountNumber);
 		return "register_success";
+	}
+	@GetMapping("/home")
+	public String homepage() {
+		
+		
+		
+		return "home";
 	}
 }
